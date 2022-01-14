@@ -141,7 +141,7 @@ def read_package(workout_type: str, data: list[int, float]) -> Training:
     type_training = {
         'SWM': Swimming,
         'RUN': Running,
-        'WLK': SportsWalking
+        'WLK': SportsWalking,
     }
     if workout_type not in type_training:
         raise ValueError(f'Неизвестный тип "{workout_type}"')
