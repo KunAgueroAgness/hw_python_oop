@@ -76,8 +76,7 @@ class Running(Training):
         """Получить количество затраченных калорий."""
 
         run_calories = ((self.coeff_calorie_1 * self.get_mean_speed()
-                        - self.coeff_calorie_2) *
-                        self.weight / self.M_IN_KM
+                        - self.coeff_calorie_2) * self.weight / self.M_IN_KM
                         * (self.duration * self.DURATION_MIN))
         return run_calories
 
@@ -107,8 +106,11 @@ class SportsWalking(Training):
 
         run_calories = ((self.coeff_calorie_1 * self.weight
                          + (self.get_mean_speed() ** self.coeff_calorie_2
-                            // self.height) * self.coeff_calorie_3 * self.weight)
-                        * self.duration * self.DURATION_MIN)
+                            // self.height)
+                         * self.coeff_calorie_3
+                         * self.weight)
+                        * self.duration
+                        * self.DURATION_MIN)
         return run_calories
 
 
