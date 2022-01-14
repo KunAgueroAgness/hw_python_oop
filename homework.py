@@ -64,13 +64,8 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    coeff_calorie_1 = 18
-    coeff_calorie_2 = 20
-
-    def get_distance(self) -> float:
-        """Получить дистанцию в км."""
-        distance = self.action * self.LEN_STEP / self.M_IN_KM
-        return distance
+    coeff_calorie_1: int = 18
+    coeff_calorie_2: int = 20
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -96,16 +91,13 @@ class SportsWalking(Training):
         super().__init__(action, duration, weight)
         self.height = height
 
-    def get_distance(self) -> float:
-        """Получить дистанцию в км."""
-        distance = self.action * self.LEN_STEP / self.M_IN_KM
-        return distance
-
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
 
-        run_calories = ((self.coeff_calorie_1 * self.weight
-                         + (self.get_mean_speed() ** self.coeff_calorie_2
+        run_calories = ((self.coeff_calorie_1
+                         * self.weight
+                         + (self.get_mean_speed()
+                            ** self.coeff_calorie_2
                             // self.height)
                          * self.coeff_calorie_3
                          * self.weight)
@@ -151,9 +143,9 @@ def read_package(workout_type: str, data: list[int, float]) -> Training:
         'RUN': Running,
         'WLK': SportsWalking
     }
-    if read_training.get(workout_type) is None:
-        return ValueError
-    return read_training.get(workout_type)(*data)
+    if workout_type not in read_training:
+        raise ValueError(f'Неизвестный тип {workout_type}')
+    return read_training[workout_type](*data)
 
 
 def main(training: Training) -> None:
