@@ -136,7 +136,7 @@ class Swimming(Training):
         return swimm_calories
 
 
-def read_package(workout_type: str, data: list[float]) -> Training:
+def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     type_training = {
         'SWM': Swimming,
